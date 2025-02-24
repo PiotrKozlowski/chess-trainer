@@ -29,11 +29,24 @@ const ChessBoard = ({ piece, position, validMoves, userMoves, showResult }) => {
             const isDark = (FILES.indexOf(f) + RANKS.indexOf(r)) % 2 === 1;
             const isPiece = coord === position;
             const isValid = showResult && validMoves.includes(coord);
-            const isUserCorrect = showResult && userMoves.includes(coord);
+            const isUserCorrect =
+              showResult &&
+              userMoves.includes(coord) &&
+              validMoves.includes(coord);
+            const isUserWrong =
+              showResult &&
+              userMoves.includes(coord) &&
+              !validMoves.includes(coord);
 
             return (
               <StyledCell key={coord} isDark={isDark} highlight={isValid}>
-                {isPiece ? PIECE_TO_ICON[piece] : isUserCorrect ? "✔️" : ""}
+                {isPiece
+                  ? PIECE_TO_ICON[piece]
+                  : isUserCorrect
+                    ? "🗸️"
+                    : isUserWrong
+                      ? "🗙"
+                      : ""}
               </StyledCell>
             );
           })}

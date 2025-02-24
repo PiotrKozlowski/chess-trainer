@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ChessBoard from "./ChessBoard";
 import { getValidMoves } from "./utils";
 import { FILES, PIECES, RANKS } from "./constants";
@@ -10,23 +10,32 @@ const App = () => {
   const [validMoves, setValidMoves] = useState([]);
   const [showResult, setShowResult] = useState(false);
 
-  const randomSquare = () => {
+  const randomSquare = useCallback(() => {
     const file = FILES[Math.floor(Math.random() * FILES.length)];
     const rank = RANKS[Math.floor(Math.random() * RANKS.length)];
     return `${file}${rank}`;
-  };
+  }, []);
 
-  const handleRandomize = () => {
+  const handleRandomize = useCallback(() => {
     const newPosition = randomSquare();
     setPosition(newPosition);
     setValidMoves(getValidMoves(piece, newPosition));
     setShowResult(false);
     setUserMoves("");
-  };
+  }, [piece, randomSquare]);
 
-  const handleCheck = () => {
+  const handleCheck = useCallback(() => {
     setShowResult(true);
-  };
+  }, []);
+
+  const handleEnter = useCallback(
+    (e) => {
+      if (e.key === "Enter") {
+        handleCheck();
+      }
+    },
+    [handleCheck],
+  );
 
   return (
     <div>
@@ -47,19 +56,23 @@ const App = () => {
         <div>
           <p>Wylosowana pozycja: {position}</p>
           <input
+            autoFocus
             type="text"
             placeholder="Podaj pola (np. a1, b2, c3)"
             value={userMoves}
             onChange={(e) => setUserMoves(e.target.value)}
+            onKeyPress={handleEnter}
           />
           <button onClick={handleCheck}>Sprawdź</button>
-          <ChessBoard
-            piece={piece}
-            position={position}
-            validMoves={validMoves}
-            userMoves={userMoves.split(", ")}
-            showResult={showResult}
-          />
+          {showResult && (
+            <ChessBoard
+              piece={piece}
+              position={position}
+              validMoves={validMoves}
+              userMoves={userMoves.replace(/\s+/g, "").split(",")}
+              showResult={showResult}
+            />
+          )}
         </div>
       )}
     </div>
