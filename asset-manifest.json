@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/chess-trainer/static/js/main.96d9f632.js",
+    "index.html": "/chess-trainer/index.html",
+    "main.96d9f632.js.map": "/chess-trainer/static/js/main.96d9f632.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.96d9f632.js"
+  ]
+}
