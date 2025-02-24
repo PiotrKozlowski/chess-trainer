@@ -1,13 +1,21 @@
 const boardSize = 8;
 
-export const files = "abcdefgh".split("");
+export const FILES = "abcdefgh".split("");
 
-export const ranks = [...Array(boardSize)].map((_, i) => i + 1);
+export const RANKS = [...Array(boardSize)].map((_, i) => i + 1);
 
-export const pieces = {
-    "King": "K",
-    "Queen": "Q",
-    "Bishop": "B",
-    "Night": "N",
-    "Rook": "R",
+export const PIECES = {
+  King: "K",
+  Queen: "Q",
+  Bishop: "B",
+  Night: "N",
+  Rook: "R",
+};
+
+export const PIECE_TO_ICON = {
+  [PIECES.King]: "♚",
+  [PIECES.Queen]: "♛",
+  [PIECES.Bishop]: "♝",
+  [PIECES.Night]: "♞",
+  [PIECES.Rook]: "♜",
 };

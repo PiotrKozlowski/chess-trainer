@@ -1,47 +1,58 @@
 import React from "react";
-import styled from "styled-components";
-import {files, ranks} from "./constants";
-
-// Style dla planszy
-const BoardWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(8, 50px);
-  grid-template-rows: repeat(8, 50px);
-  gap: 2px;
-  margin: 20px;
-`;
-
-const Cell = styled.div`
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: ${(props) => (props.highlight ? "#90EE90" : props.isDark ? "#769656" : "#EEEED2")};
-  font-size: 20px;
-  font-weight: bold;
-`;
+import { FILES, PIECE_TO_ICON, RANKS } from "./constants";
+import {
+  StyledBoardWrapper,
+  StyledCell,
+  StyledLabel,
+  StyledTopLabel,
+} from "./styled";
 
 const ChessBoard = ({ piece, position, validMoves, userMoves, showResult }) => {
-    return (
-        <BoardWrapper>
-            {ranks.reverse().map((r) =>
-                files.map((f) => {
-                    const coord = `${f}${r}`;
-                    const isDark = (files.indexOf(f) + ranks.indexOf(r)) % 2 === 1;
-                    const isPiece = coord === position;
-                    const isValid = showResult && validMoves.includes(coord);
-                    const isUserCorrect = showResult && userMoves.includes(coord);
+  return (
+    <StyledBoardWrapper>
+      {/* Pusta komórka w lewym górnym rogu */}
+      <div></div>
 
-                    return (
-                        <Cell key={coord} isDark={isDark} highlight={isValid}>
-                            {isPiece ? piece : isUserCorrect ? "✔️" : ""}
-                        </Cell>
-                    );
-                })
-            )}
-        </BoardWrapper>
-    );
+      {/* Litery a-h nad szachownicą */}
+      {FILES.map((f) => (
+        <StyledTopLabel key={`top-${f}`}>{f}</StyledTopLabel>
+      ))}
+
+      {/* Pusta komórka w prawym górnym rogu */}
+      <div></div>
+
+      {RANKS.reverse().map((r) => (
+        <>
+          <StyledLabel key={`left-${r}`}>{r}</StyledLabel>
+          {FILES.map((f) => {
+            const coord = `${f}${r}`;
+            const isDark = (FILES.indexOf(f) + RANKS.indexOf(r)) % 2 === 1;
+            const isPiece = coord === position;
+            const isValid = showResult && validMoves.includes(coord);
+            const isUserCorrect = showResult && userMoves.includes(coord);
+
+            return (
+              <StyledCell key={coord} isDark={isDark} highlight={isValid}>
+                {isPiece ? PIECE_TO_ICON[piece] : isUserCorrect ? "✔️" : ""}
+              </StyledCell>
+            );
+          })}
+          {/* Numeracja po prawej stronie */}
+          <StyledLabel key={`right-${r}`}>{r}</StyledLabel>
+        </>
+      ))}
+
+      {/* Pusta komórka w lewym dolnym rogu */}
+      <div></div>
+
+      {/* Litery a-h pod szachownicą */}
+      {FILES.map((f) => (
+        <StyledTopLabel key={`bottom-${f}`}>{f}</StyledTopLabel>
+      ))}
+
+      {/* Pusta komórka w prawym dolnym rogu */}
+    </StyledBoardWrapper>
+  );
 };
 
 export default ChessBoard;
