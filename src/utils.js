@@ -33,7 +33,7 @@ export const getValidMoves = (piece, position) => {
         `${FILES[FILES.indexOf(file) + 1]}${rank}`,
       ];
       break;
-    case PIECES.Night:
+    case PIECES.Knight:
       moves = [
         `${FILES[FILES.indexOf(file) - 2]}${rank + 1}`,
         `${FILES[FILES.indexOf(file) - 2]}${rank - 1}`,

@@ -9,6 +9,18 @@ const App = () => {
   const [userMoves, setUserMoves] = useState("");
   const [validMoves, setValidMoves] = useState([]);
   const [showResult, setShowResult] = useState(false);
+  const [time, setTime] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    if (isRunning) {
+      timer = setInterval(() => setTime((prev) => prev + 1), 1000);
+    } else {
+      clearInterval(timer);
+    }
+    return () => clearInterval(timer);
+  }, [isRunning]);
 
   const randomSquare = useCallback(() => {
     const file = FILES[Math.floor(Math.random() * FILES.length)];
@@ -22,10 +34,13 @@ const App = () => {
     setValidMoves(getValidMoves(piece, newPosition));
     setShowResult(false);
     setUserMoves("");
+    setTime(0);
+    setIsRunning(true);
   }, [piece, randomSquare]);
 
   const handleCheck = useCallback(() => {
     setShowResult(true);
+    setIsRunning(false);
   }, []);
 
   const handleEnter = useCallback(
@@ -38,11 +53,11 @@ const App = () => {
   );
 
   return (
-    <div>
-      <h1>Szachowa Gra Ruchów</h1>
+    <div style={{fontSize: '20px'}}>
+      <h1>Chess trainer</h1>
       <label>
-        Wybierz figurę:
-        <select value={piece} onChange={(e) => setPiece(e.target.value)}>
+        Selec piece:
+        <select style={{marginLeft: '10px', padding: '5px 10px', cursor: 'pointer', fontSize: '16px'}} value={piece} onChange={(e) => setPiece(e.target.value)}>
           {Object.entries(PIECES).map(([label, value]) => (
             <option key={value} value={value}>
               {label}
@@ -50,20 +65,22 @@ const App = () => {
           ))}
         </select>
       </label>
-      <button onClick={handleRandomize}>Losuj</button>
+      <button style={{marginLeft: '10px', padding: '5px 10px', cursor: 'pointer', fontSize: '16px'}} onClick={handleRandomize}>Losuj</button>
+      <span style={{marginLeft: '10px'}}>⏳ Time: {time} sec</span>
 
       {position && (
         <div>
-          <p>Wylosowana pozycja: {position}</p>
+          <p>Your position: <span style={{ fontWeight: 'bold'}}>{position}</span></p>
           <input
             autoFocus
             type="text"
-            placeholder="Podaj pola (np. a1, b2, c3)"
+            placeholder="Write coordinates (eg. a1, b2, c3)"
             value={userMoves}
             onChange={(e) => setUserMoves(e.target.value)}
-            onKeyPress={handleEnter}
+            onKeyDown={handleEnter}
+            style={{padding: '5px 10px', width: '250px', fontSize: '16px'}}
           />
-          <button onClick={handleCheck}>Sprawdź</button>
+          <button style={{marginLeft: '10px', padding: '5px 10px', cursor: 'pointer', fontSize: '16px'}} onClick={handleCheck}>Check</button>
           {showResult && (
             <ChessBoard
               piece={piece}
