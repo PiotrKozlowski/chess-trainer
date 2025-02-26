@@ -21,12 +21,12 @@ const ChessBoard = ({ piece, position, validMoves, userMoves, showResult }) => {
       {/* Pusta komórka w prawym górnym rogu */}
       <div></div>
 
-      {RANKS.reverse().map((r) => (
+      {[...RANKS].reverse().map((r) => (
         <>
           <StyledLabel key={`left-${r}`}>{r}</StyledLabel>
           {FILES.map((f) => {
             const coord = `${f}${r}`;
-            const isDark = (FILES.indexOf(f) + RANKS.indexOf(r)) % 2 === 1;
+            const isDark = (FILES.indexOf(f) + RANKS.indexOf(r)) % 2 === 0;
             const isPiece = coord === position;
             const isValid = showResult && validMoves.includes(coord);
             const isUserCorrect =
@@ -43,9 +43,9 @@ const ChessBoard = ({ piece, position, validMoves, userMoves, showResult }) => {
                 {isPiece
                   ? PIECE_TO_ICON[piece]
                   : isUserCorrect
-                    ? "🗸️"
+                    ? "✔️"
                     : isUserWrong
-                      ? "🗙"
+                      ? "✖️"
                       : ""}
               </StyledCell>
             );

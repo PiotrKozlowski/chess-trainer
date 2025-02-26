@@ -65,7 +65,9 @@ const App = () => {
           ))}
         </select>
       </label>
-      <button style={{marginLeft: '10px', padding: '5px 10px', cursor: 'pointer', fontSize: '16px'}} onClick={handleRandomize}>Losuj</button>
+      <button style={{marginLeft: '10px', padding: '5px 10px', cursor: 'pointer', fontSize: '16px'}} onClick={handleRandomize}>
+        Generate
+      </button>
       <span style={{marginLeft: '10px'}}>⏳ Time: {time} sec</span>
 
       {position && (
@@ -80,7 +82,9 @@ const App = () => {
             onKeyDown={handleEnter}
             style={{padding: '5px 10px', width: '250px', fontSize: '16px'}}
           />
-          <button style={{marginLeft: '10px', padding: '5px 10px', cursor: 'pointer', fontSize: '16px'}} onClick={handleCheck}>Check</button>
+          <button style={{marginLeft: '10px', padding: '5px 10px', cursor: 'pointer', fontSize: '16px'}} onClick={handleCheck}>
+            Check
+          </button>
           {showResult && (
             <ChessBoard
               piece={piece}
