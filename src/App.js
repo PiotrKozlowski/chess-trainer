@@ -70,7 +70,7 @@ const App = () => {
         setTime(0);
       }
     },
-    [auto-generate, generateForPiece],
+    [autoGenerate, generateForPiece],
   );
 
   const handleCheck = useCallback(() => {
@@ -144,7 +144,8 @@ const App = () => {
       {position && (
         <div>
           <p>
-            Your position: <span style={{ fontWeight: "bold" }}>{position}</span>
+            Your position:{" "}
+            <span style={{ fontWeight: "bold" }}>{position}</span>
           </p>
           <input
             autoFocus
