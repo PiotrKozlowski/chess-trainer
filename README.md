@@ -9,3 +9,9 @@ This game helps you to visualize a chessboard in your head by challenging you wi
 5. Check the results
 
 Check it out here: https://piotrkozlowski.github.io/chess-trainer
+
+# Deployment
+
+Run `npm run deploy`
+Wait
+Go to https://piotrkozlowski.github.io/chess-trainer
