@@ -8,10 +8,12 @@ import {
   PieceOptions,
   PieceSelectorWrapper,
 } from "./styled";
+import LandingPage from "./LandingPage";
 
 const pieceEntries = Object.entries(PIECES);
 
 const App = () => {
+  const [hasStarted, setHasStarted] = useState(false);
   const [piece, setPiece] = useState(PIECES.Bishop);
   const [position, setPosition] = useState("");
   const [userMoves, setUserMoves] = useState("");
@@ -68,7 +70,7 @@ const App = () => {
         setTime(0);
       }
     },
-    [autoGenerate, generateForPiece],
+    [auto-generate, generateForPiece],
   );
 
   const handleCheck = useCallback(() => {
@@ -84,6 +86,10 @@ const App = () => {
     },
     [handleCheck],
   );
+
+  if (!hasStarted) {
+    return <LandingPage onStart={() => setHasStarted(true)} />;
+  }
 
   return (
     <div style={{ fontSize: "20px" }}>
