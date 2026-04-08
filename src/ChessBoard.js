@@ -22,8 +22,8 @@ const ChessBoard = ({ piece, position, validMoves, userMoves, showResult }) => {
       <div></div>
 
       {[...RANKS].reverse().map((r) => (
-        <>
-          <StyledLabel key={`left-${r}`}>{r}</StyledLabel>
+        <React.Fragment key={`row-${r}`}>
+          <StyledLabel>{r}</StyledLabel>
           {FILES.map((f) => {
             const coord = `${f}${r}`;
             const isDark = (FILES.indexOf(f) + RANKS.indexOf(r)) % 2 === 0;
@@ -51,8 +51,8 @@ const ChessBoard = ({ piece, position, validMoves, userMoves, showResult }) => {
             );
           })}
           {/* Numeracja po prawej stronie */}
-          <StyledLabel key={`right-${r}`}>{r}</StyledLabel>
-        </>
+          <StyledLabel>{r}</StyledLabel>
+        </React.Fragment>
       ))}
 
       {/* Pusta komórka w lewym dolnym rogu */}

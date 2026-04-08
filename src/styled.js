@@ -41,3 +41,56 @@ export const StyledTopLabel = styled.div`
   font-weight: bold;
   font-size: 18px;
 `;
+
+export const PieceSelectorWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+`;
+
+export const PieceOptions = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+`;
+
+export const PieceButton = styled.button`
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  border: 2px solid ${(props) => (props.$isSelected ? "#333" : "#ccc")};
+  background: ${(props) => (props.$isSelected ? "#f0d9b5" : "#fff")};
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 16px;
+  transition: border 0.2s ease, transform 0.1s ease, background 0.2s ease;
+  &:hover {
+    transform: translateY(-2px);
+  }
+  .piece-icon {
+    font-size: 34px;
+    line-height: 1;
+  }
+  .piece-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+`;
+
+export const AutoGenerateWrapper = styled.label`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  cursor: pointer;
+
+  input {
+    cursor: pointer;
+  }
+`;
